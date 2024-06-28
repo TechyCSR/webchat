@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from g4f.client import Client
 
 class Backend_Api:
-    def __init__(self, app,config) -> None:
+    def __init__(self, app) -> None:
         self.app = app
         self.client = Client(provider="PerplexityLabs")
         self.routes = {
