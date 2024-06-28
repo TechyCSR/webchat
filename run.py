@@ -4,28 +4,62 @@ from server.backend import Backend_Api
 
 
 
-from json import load
+# from json import load
 
-if __name__ == '__main__':
-    config = load(open('config.json', 'r'))
-    site_config = config['site_config']
+# if __name__ == '__main__':
+#     config = load(open('config.json', 'r'))
+#     site_config = config['site_config']
     
-    site = Website(app)
-    for route in site.routes:
-        app.add_url_rule(
-            route,
-            view_func = site.routes[route]['function'],
-            methods   = site.routes[route]['methods'],
-        )
+#     site = Website(app)
+#     for route in site.routes:
+#         app.add_url_rule(
+#             route,
+#             view_func = site.routes[route]['function'],
+#             methods   = site.routes[route]['methods'],
+#         )
 
-    backend_api  = Backend_Api(app, config)
-    for route in backend_api.routes:
-        app.add_url_rule(
-            route,
-            view_func = backend_api.routes[route]['function'],
-            methods   = backend_api.routes[route]['methods'],
-        )
+#     backend_api  = Backend_Api(app, config)
+#     for route in backend_api.routes:
+#         app.add_url_rule(
+#             route,
+#             view_func = backend_api.routes[route]['function'],
+#             methods   = backend_api.routes[route]['methods'],
+#         )
 
-    print(f"Running on port {site_config['port']}")
-    app.run(**site_config)
-    print(f"Closing port {site_config['port']}")
+#     print(f"Running on port {site_config['port']}")
+#     app.run(**site_config)
+#     print(f"Closing port {site_config['port']}")
+
+
+
+
+
+from flask import Flask
+from server.website import Website
+from server.backend import Backend_Api
+
+app = Flask(__name__)
+
+
+
+# Initialize Website
+site = Website(app)
+for route in site.routes:
+    app.add_url_rule(
+        route,
+        view_func=site.routes[route]['function'],
+        methods=site.routes[route]['methods']
+    )
+
+# Initialize Backend_Api
+backend_api = Backend_Api(app)
+for route in backend_api.routes:
+    app.add_url_rule(
+        route,
+        view_func=backend_api.routes[route]['function'],
+        methods=backend_api.routes[route]['methods']
+    )
+
+# Run the app
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=2000)
