@@ -25,7 +25,7 @@ if __name__ == '__main__':
         )
 
     print(f"Running on port 2000")
-    app.run(**site_config)
+    app.run()
     print(f"Closing port 2000")
 
 
