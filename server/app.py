@@ -8,5 +8,3 @@ app = Flask(__name__, template_folder=template_dir)
 
 # Define your routes and other configurations
 
-if __name__ == "__main__":
-    app.run(debug=True)
